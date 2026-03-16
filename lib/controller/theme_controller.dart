@@ -21,7 +21,7 @@ class ThemeController extends GetxController {
   void toggleTheme() {
     // تغيير الثيم في الـ UI
     Get.changeThemeMode(isDarkMode ? ThemeMode.light : ThemeMode.dark);
-    
+      
     // حفظ الحالة الجديدة في الذاكرة
     _box.write(_key, !isDarkMode);
     

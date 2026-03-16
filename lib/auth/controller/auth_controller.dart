@@ -7,6 +7,7 @@ import 'package:google_sign_in/google_sign_in.dart';
 import 'dart:async';
 import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:the_dark_knight_final/auth/ui/verify.dart';
+import 'package:the_dark_knight_final/controller/Settings_Controller.dart';
 import 'package:the_dark_knight_final/layout/home.dart';
 import 'package:the_dark_knight_final/shared/components.dart';
 import 'package:get_storage/get_storage.dart';
@@ -18,7 +19,8 @@ class ShowPasswordController extends GetxController {
   //final SharedPreferences _sharedPreferences = Get.find();
   final _box = GetStorage();
   late RxBool remember;
-  String get currentUserId => FirebaseAuth.instance.currentUser?.uid ?? "";
+    String get currentUserId => FirebaseAuth.instance.currentUser?.uid ?? "";
+
   @override
   void onInit() {
     super.onInit();
@@ -63,28 +65,43 @@ class ShowPasswordController extends GetxController {
   }
 
   Future<UserCredential> signInWithGoogle() async {
-    // Trigger the authentication flow
-    try{ final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
+  final SettingsController ctrl = Get.find();
+  
+  try {
+    // 1. فتح نافذة جوجل واختيار الحساب
+    final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
+    if (googleUser == null) return Future.error("Sign in aborted by user");
 
-    // Obtain the auth details from the request
-    final GoogleSignInAuthentication? googleAuth =
-        await googleUser?.authentication;
+    // 2. الحصول على التوكنز
+    final GoogleSignInAuthentication googleAuth = await googleUser.authentication;
 
-    // Create a new credential
+    // 3. إنشاء الكريدينشال
     final credential = GoogleAuthProvider.credential(
-      accessToken: googleAuth?.accessToken,
-      idToken: googleAuth?.idToken,
+      accessToken: googleAuth.accessToken,
+      idToken: googleAuth.idToken,
     );
 
-    // Once signed in, return the UserCredential
-    return await FirebaseAuth.instance.signInWithCredential(credential);}
-    catch(e){
-      print("Google Sign-In Error: $e");
-      return Future.error("__________________Google Sign-In Failed: $e");
-    }
-   
-  }
+    // 4. (الخطوة الأهم) تنفيذ تسجيل الدخول أولاً واستقبال النتيجة
+    UserCredential userCredential = await FirebaseAuth.instance.signInWithCredential(credential);
+    
+    // 5. دلوقتي اليوزر سجل فعلاً.. نقدر ناخد الـ UID الطازة من الـ userCredential
+    String currentUserId = userCredential.user?.uid ?? "";
+    
+   // print("New Fresh UID: $currentUserId");
 
+    // 6. التحديث والحفظ (بناءً على الـ UID الجديد يقيناً)
+    await _box.write('last_uid', currentUserId);
+    
+    // تهيئة الإعدادات لليوزر اللي لسه داخل حالا
+    await ctrl.initUserSettings(currentUserId);
+
+    return userCredential;
+
+  } catch (e) {
+   // print("Google Sign-In Error: $e");
+    return Future.error("Google Sign-In Failed: $e");
+  }
+}
   signup(TextEditingController t1, TextEditingController t2) async {
     try {
       // 1. إنشاء الحساب
@@ -96,12 +113,12 @@ class ShowPasswordController extends GetxController {
       // 2. إرسال إيميل التوثيق
       try {
         if (userCredential.user != null) {
-          print("💡 جاري إرسال إيميل التوثيق إلى: ${userCredential.user!.email}");
+          //print("💡 جاري إرسال إيميل التوثيق إلى: ${userCredential.user!.email}");
           await userCredential.user!.sendEmailVerification();
-          print("✅ سيرفر فايربيز استلم أمر إرسال الإيميل بنجاح.");
+          //print("✅ سيرفر فايربيز استلم أمر إرسال الإيميل بنجاح.");
         }
       } catch (emailError) {
-        print("❌ خطأ خاص بإرسال الإيميل فقط: $emailError");
+       // print("❌ خطأ خاص بإرسال الإيميل فقط: $emailError");
       }
 
       // ✅ النجاح
@@ -149,7 +166,7 @@ class ShowPasswordController extends GetxController {
         ).show();
       }
     } catch (e) {
-      print("General Error: $e");
+     // print("General Error: $e");
     }
 }
   signin(TextEditingController t1, TextEditingController t2) async {
@@ -158,6 +175,7 @@ class ShowPasswordController extends GetxController {
         email: t1.text.trim(),
         password: t2.text.trim(),
       );
+      _box.write('last_uid', currentUserId);
       Get.off(() => Home_page());
     } on FirebaseAuthException catch (e) {
      /*  print(

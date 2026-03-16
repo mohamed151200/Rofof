@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:the_dark_knight_final/controller/Localization_controller.dart';
+import 'package:the_dark_knight_final/controller/Settings_Controller.dart';
 import 'package:the_dark_knight_final/shared/components.dart';
 import 'package:get/get.dart';
 
@@ -108,7 +109,8 @@ class SettingsTile extends StatelessWidget {
 // ══════════════════════════════════════
 class LanguageToggle extends StatelessWidget {
   final MyLocalController controller;
-  const LanguageToggle({required this.controller});
+  final SettingsController Ctrl = Get.find();
+   LanguageToggle({required this.controller});
 
   
 
@@ -125,7 +127,7 @@ class LanguageToggle extends StatelessWidget {
         children: ['ar', 'en'].map((lang) {
           final isSelected = Get.locale?.languageCode == lang;
           return GestureDetector(
-            onTap: () => controller.changeLang(lang),
+            onTap: () => Ctrl.changeLang(lang),
             child: AnimatedContainer(
               duration: const Duration(milliseconds: 200),
               padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 7),

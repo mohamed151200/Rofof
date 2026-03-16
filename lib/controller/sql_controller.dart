@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:sqflite/sqflite.dart';
@@ -179,7 +180,7 @@ class Sqlcrt extends GetxController {
       // الخطوة 2: محاولة الرفع للسيرفر في الخلفية
       try {
         String uid = Get.find<ShowPasswordController>().currentUserId;
-        print('____________________${uid}');
+        ///print('____________________${uid}');
         await FirebaseFirestore.instance
         .collection('users')
         .doc(uid)
@@ -203,7 +204,7 @@ class Sqlcrt extends GetxController {
           whereArgs: [id],
         );
       } catch (e) {
-        print('⚠️ {$e}[Step 2] فشل الرفع للسيرفر، هيفضل "غير متزامن" حالياً');
+        ///print('⚠️ {$e}[Step 2] فشل الرفع للسيرفر، هيفضل "غير متزامن" حالياً');
       }
     }
   
@@ -266,16 +267,16 @@ class Sqlcrt extends GetxController {
       .doc(id)
       .delete();
 
-      print('☁️ [Cloud] تم الحذف من السيرفر بنجاح');
+    //  print('☁️ [Cloud] تم الحذف من السيرفر بنجاح');
 
       // 2. بما إن السيرفر مسحه، نمسحه نهائياً من الـ SQL (Hard Delete)
       // مفيش داعي نسيبه بـ is_deleted = 1 خلاص
       await db.delete(tableName, where: 'id = ?', whereArgs: [id]);
-      print('🗑️ [Local] تم تنظيف القاعدة المحلية نهائياً');
+      ///print('🗑️ [Local] تم تنظيف القاعدة المحلية نهائياً');
     } catch (e) {
       // لو النت فصل هنا، الكتاب هيفضل في الـ SQL وقيمته is_deleted = 1
       // والـ Sync Master هيحاول يمسحه تاني لما النت يرجع
-      print('⚠️ [Cloud] فشل الحذف أونلاين: ${e.toString()}');
+      ///print('⚠️ [Cloud] فشل الحذف أونلاين: ${e.toString()}');
     }
 
     // تحديث البيانات في الـ UI
@@ -344,7 +345,7 @@ class Sqlcrt extends GetxController {
       ], // بنبعت الـ query هنا عشان نحمي الداتا من الـ SQL Injection
       // أو استخدم 'timestamp DESC' لو عندك العمود ده فعلاً
     );
-    print(maps[2]);
+    ///print(maps[2]);
     // 2. تحويل الـ Maps لـ Objects عشان الـ UI يفهمها
     if (maps.isNotEmpty) {
       return maps.map((bookMap) {
@@ -382,7 +383,7 @@ class Sqlcrt extends GetxController {
       whereArgs: [1],
     );
 
-    String uid = Get.find<ShowPasswordController>().currentUserId;
+  final String? uid = FirebaseAuth.instance.currentUser?.uid;
 
 
     if (pendingSync.isEmpty) {
@@ -451,7 +452,7 @@ class Sqlcrt extends GetxController {
           .get();
 
       final db = await database;
-      print('☁️📥 جلب ${snapshot.docs.length} كتاب من الكلاود للموبايل');
+      //print('☁️📥 جلب ${snapshot.docs.length} كتاب من الكلاود للموبايل');
       await db.delete('books');
 
 
@@ -476,13 +477,13 @@ class Sqlcrt extends GetxController {
       
       await getData(database, 'books');
       books.refresh();
-      print('✅ ${books.length} تم جلب البيانات من الكلاود وتحديث الشاشة بنجاح'); ;
+     // print('✅ ${books.length} تم جلب البيانات من الكلاود وتحديث الشاشة بنجاح'); ;
 
 
 
       //print("☁️📥 تم جلب ${snapshot.docs.length} كتاب من الكلاود للموبايل");
     } catch (e) {
-      print("❌ فشل جلب البيانات من الكلاود: $e");
+      //print("❌ فشل جلب البيانات من الكلاود: $e");
     }
   }
 }

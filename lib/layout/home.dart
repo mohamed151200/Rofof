@@ -48,6 +48,7 @@ class Home_page extends StatelessWidget {
          onTap: (value) => crt.changeIndex(value),),
       ),
       appBar:  AppBar( 
+        automaticallyImplyLeading: false,
         title: Obx(()=>Text(crt.titles[crt.index.value].tr, style: GoogleFonts.playfairDisplay(
                             fontSize  : 25,
                             fontWeight: FontWeight.bold,

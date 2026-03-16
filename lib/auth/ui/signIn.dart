@@ -94,16 +94,16 @@ class _SignInState extends State<SignIn> {
                       "Remember Me",
                       style: TextStyle(color: mainColor, fontSize: 20),
                     ),
-                    Obx(()=>
-                       Checkbox(
-                        hoverColor: Colors.blue,
-                        value: ctr.remember.value,
-                        onChanged: (value) {
-                          ctr.toggleRemember();
-                          ctr.save();
-                        },
+                      Obx(()=>
+                        Checkbox(
+                          hoverColor: Colors.blue,
+                          value: ctr.remember.value,
+                          onChanged: (value) {
+                            ctr.toggleRemember();
+                            ctr.save();
+                          },
+                        ),
                       ),
-                    ),
                     SizedBox(width: 35),
 
                     TextButton(

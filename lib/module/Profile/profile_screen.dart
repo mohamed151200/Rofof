@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:the_dark_knight_final/auth/ui/signIn.dart';
 import 'package:the_dark_knight_final/controller/Localization_controller.dart';
+import 'package:the_dark_knight_final/controller/Settings_Controller.dart';
 import 'package:the_dark_knight_final/controller/theme_controller.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get/get.dart';
@@ -28,6 +29,7 @@ class Profile extends StatelessWidget {
 
           // ── SliverAppBar مع Avatar ──
           SliverAppBar(
+            automaticallyImplyLeading: false,
             expandedHeight: 260,
             pinned: true,
             backgroundColor: context.bg,
@@ -139,15 +141,15 @@ class Profile extends StatelessWidget {
                   const SizedBox(height: 12),
 
                   // Dark Mode Toggle
-                  GetBuilder<ThemeController>(
+                  GetX<SettingsController>(
                     builder: (ctrl) => SettingsTile(
-                      icon    : ctrl.isDarkMode ? Icons.dark_mode_rounded : Icons.light_mode_rounded,
-                      iconColor: ctrl.isDarkMode ? Colors.purpleAccent : Colors.orange,
+                      icon    : ctrl.isDarkMode.value ? Icons.dark_mode_rounded : Icons.light_mode_rounded,
+                      iconColor: ctrl.isDarkMode.value ? Colors.purpleAccent : Colors.orange,
                       title   : '1'.tr,
-                      subtitle: ctrl.isDarkMode ? '12'.tr : '13'.tr,
+                      subtitle: ctrl.isDarkMode.value ? '12'.tr : '13'.tr,
                       trailing: Switch.adaptive(
-                        value          : ctrl.isDarkMode,
-                        onChanged      : (_) => ctrl.toggleTheme(),
+                        value          : ctrl.isDarkMode.value,
+                        onChanged      : (_) => ctrl.changeTheme(),
                         activeColor    : mainColor,
                         activeTrackColor: mainColor.withOpacity(0.3),
                       ),

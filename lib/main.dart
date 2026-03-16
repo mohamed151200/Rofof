@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:the_dark_knight_final/auth/controller/auth_controller.dart';
 import 'package:the_dark_knight_final/auth/ui/signIn.dart';
 import 'package:the_dark_knight_final/controller/Localization_controller.dart';
+import 'package:the_dark_knight_final/controller/Settings_Controller.dart';
 import 'package:the_dark_knight_final/controller/connectivity_controller.dart';
 import 'package:the_dark_knight_final/controller/theme_controller.dart';
 import 'package:the_dark_knight_final/remote/api_client.dart';
@@ -22,11 +23,11 @@ Future<void> main() async {
   try {
    // GoogleFonts.config.allowRuntimeFetching = false;
     await GetStorage.init();
-    print("Storage Initialized");
+    //print("Storage Initialized");
     // جرب تشغل الفايربيز بـ Timeout
     await Firebase.initializeApp().timeout(const Duration(seconds: 5));
   } catch (e) {
-    print("Firebase Initialization Timed Out or Failed: $e");
+    //print("Firebase Initialization Timed Out or Failed: $e");
     // حتى لو فشل، هنكمل عشان الأبلكيشن يفتح
   }
   ApiClient.init();
@@ -34,9 +35,11 @@ Future<void> main() async {
   Get.put( Sqlcrt());
 
   Get.put(  Homecrt());
+  Get.put(  SettingsController());
+
 
    Get.put(ConnectivityController());
-   Get.lazyPut(() => ShowPasswordController(), fenix: true);
+   Get.put(ShowPasswordController());
 
   
 
@@ -54,11 +57,11 @@ class MyApp extends StatelessWidget {
     final themeController = Get.put(ThemeController());
     final localController = Get.put(MyLocalController());
     return GetMaterialApp(
-      themeMode: themeController.themeMode,
+      themeMode: ThemeMode.system,
       title: 'Flutter Demo',
       theme: AppThemes.lightTheme,
       darkTheme: AppThemes.darkTheme,
-      locale: localController.getlocale(),
+      
       translations: Mylocal(),
       debugShowCheckedModeBanner: false,
 

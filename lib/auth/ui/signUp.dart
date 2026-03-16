@@ -113,17 +113,17 @@ class _SignupState extends State<Signup> {
                    Text(
                     "Remember Me",style: TextStyle(color: mainColor),
                   ),
-                  Checkbox(hoverColor: Colors.blue,
-                  activeColor:  Colors.blue,
-
-                    value: remember,
-                    onChanged: (value) {
-                      setState(() {
-                        remember = value!;
-                      });
-                      ctr.save();
-                    },
-                  ),]),
+                  Obx(()=>
+                       Checkbox(
+                        hoverColor: Colors.blue,
+                        value: ctr.remember.value,
+                        onChanged: (value) {
+                          ctr.toggleRemember();
+                          ctr.save();
+                        },
+                      ),
+                    ),
+                  ]),
 
               MaterialButtonScreen(
                 onPressed: () async {
