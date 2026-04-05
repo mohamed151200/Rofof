@@ -8,7 +8,7 @@ import 'package:the_dark_knight_final/shared/secrets.dart';
 
 
 enum LoadSource { author, publisher, category, search, none,genre }
-class Homecrt extends GetxController {
+class   Homecrt extends GetxController {
   // 1. المتغيرات المرصودة
   var results = <BookModel>[].obs;
   var search = [].obs;

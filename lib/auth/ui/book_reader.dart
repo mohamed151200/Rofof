@@ -30,7 +30,7 @@ class BookReaderScreen extends StatefulWidget {
 
 class _BookReaderScreenState extends State<BookReaderScreen> {
   late final WebViewController? _webController;
-  final Sqlcrt _sql = Get.find();
+ // final Sqlcrt _sql = Get.find();
 
   // ── State ──
   bool _isLoading       = true;
@@ -39,8 +39,8 @@ class _BookReaderScreenState extends State<BookReaderScreen> {
   bool _isFullscreen    = false;
 
   // ── ألوان ──
-  static const _kPrimary = Color(0xff77094E);
-  static const _kDark    = Color(0xff0D0D12);
+  
+  
 
   @override
   void initState() {
@@ -55,18 +55,11 @@ class _BookReaderScreenState extends State<BookReaderScreen> {
     _webController = _buildWebController();
 
     // حفظ الكتاب في Recent automatically لما يفتح
-    _sql.insertdata(
-      tableName : 'recentBooks',
-      id        : widget.book.id,
-      image     : widget.book.image,
-      name      : widget.book.title,
-      author    : widget.book.author,
-      price     : widget.book.price,
-    );
+   
   }
 
   // ─────────────────────────────────────────────
-  //  بناء الـ WebViewController بإعدادات كاملة
+  // _sql بناء الـ WebViewController بإعدادات كاملة
   // ─────────────────────────────────────────────
   WebViewController _buildWebController() {
     // اختيار الـ URL الصح:
@@ -146,7 +139,7 @@ class _BookReaderScreenState extends State<BookReaderScreen> {
           LinearProgressIndicator(
             value           : _loadProgress > 0 ? _loadProgress : null,
             backgroundColor : Colors.white12,
-            color           : _kPrimary,
+            color           : mainColor,
             minHeight       : 2,
           ),
 
@@ -293,8 +286,8 @@ class _BookReaderScreenState extends State<BookReaderScreen> {
               width : 100, height: 100,
               decoration: BoxDecoration(
                 shape   : BoxShape.circle,
-                color   : _kPrimary.withOpacity(0.1),
-                border  : Border.all(color: _kPrimary.withOpacity(0.3), width: 1.5),
+                color   : mainColor.withOpacity(0.1),
+                border  : Border.all(color: mainColor.withOpacity(0.3), width: 1.5),
               ),
               child: const Icon(Icons.lock_rounded, color: Colors.white54, size: 44),
             ),
@@ -318,7 +311,7 @@ class _BookReaderScreenState extends State<BookReaderScreen> {
             _ActionButton(
               label  : '47'.tr,
               icon   : Icons.menu_book_rounded,
-              color  : _kPrimary,
+              color  : mainColor,
               onTap  : () => launchUrl(
                 Uri.parse(
                   widget.book.previewLink ??

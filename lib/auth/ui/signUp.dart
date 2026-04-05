@@ -34,7 +34,7 @@ class _SignupState extends State<Signup> {
      // Image.asset("assets/images/signup.jpg"),
       Container(
          // height: 800,
-          color: Color.fromARGB(255, 8, 1, 1),
+          color: context.surface,
           padding: EdgeInsets.fromLTRB(50, 0, 30, 0),
           child: Form(
             key: form,
@@ -46,7 +46,7 @@ class _SignupState extends State<Signup> {
                 height: 20,
               ),
                Text(
-                "sign up",
+                "58".tr,
                 style: GoogleFonts.timmana(fontWeight: FontWeight.bold,
                 fontSize: 50, color:mainColor,)
               ),
@@ -56,7 +56,7 @@ class _SignupState extends State<Signup> {
               TextFormFieldScreen(
                 controller: emailController,
                 keyboardType: TextInputType.name,
-                label: "Email",
+                label: "53".tr,
                 prefix: Icons.email,
                 validator: (value) {
                   return ValidatorScreen(value!, 2, 90, "emailController");
@@ -67,7 +67,7 @@ class _SignupState extends State<Signup> {
                     obsureText: controller.isshowPassword,
                     controller: passwordController1,
                     keyboardType: TextInputType.name,
-                    label: "Password",
+                    label: "54".tr,
                     prefix: Icons.lock,
                     validator: (value) {
                       return ValidatorScreen(
@@ -97,7 +97,7 @@ class _SignupState extends State<Signup> {
                       Get.snackbar("Rofof","Logged In Successfully");
                   }
                 },
-                titleOfButton: "sign in with google",
+                titleOfButton: "59".tr,
                 Icons: const Icon(FontAwesome.google,
                     color: Colors.amber, size: 24.0),
                 colorOfButton: Colors.grey,
@@ -111,7 +111,7 @@ class _SignupState extends State<Signup> {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [const SizedBox(width: 20),
                    Text(
-                    "Remember Me",style: TextStyle(color: mainColor),
+                    "55".tr,style: TextStyle(color: mainColor),
                   ),
                   Obx(()=>
                        Checkbox(
@@ -133,7 +133,7 @@ class _SignupState extends State<Signup> {
                   }
                   
                 },    
-                titleOfButton: "Sign Up            ",
+                titleOfButton: "58".tr,
                 Icons: const Icon(FontAwesome.google,
                     color: Colors.amber, size: 24.0),
                 colorOfButton: mainColor,
@@ -149,9 +149,11 @@ class _SignupState extends State<Signup> {
                   onPressed: () {
                     Get.to(() => SignIn());
                   },
-                  child: Text(
-                    "          Do you Have an Account? Sign In",
-                    style: TextStyle(color: mainColor, fontSize: 15),
+                  child: Center(
+                    child: Text(
+                      "60".tr,
+                      style: TextStyle(color: mainColor, fontSize: 15),
+                    ),
                   ))
             ]),
           ))

@@ -92,6 +92,7 @@ class ShowPasswordController extends GetxController {
     // 6. التحديث والحفظ (بناءً على الـ UID الجديد يقيناً)
     await _box.write('last_uid', currentUserId);
     
+    
     // تهيئة الإعدادات لليوزر اللي لسه داخل حالا
     await ctrl.initUserSettings(currentUserId);
 

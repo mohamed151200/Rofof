@@ -19,11 +19,12 @@ class SettingsController extends GetxController {
     super.onInit();
     var allUsers = _box.read('users_settings_map');
     if (allUsers != null ) {
-      var userSettings = allUsers[currentUserId];
+      var userSettings = allUsers[FirebaseAuth.instance.currentUser?.uid];
       if (userSettings != null) {
         isDarkMode.value = userSettings['isDark'] ?? false;
       }
     }
+    
     // تنفيذ التهيأة فوراً عند استدعاء الكنترولر
 
     initUserSettings(lastUid ?? currentUserId);
@@ -156,6 +157,8 @@ class SettingsController extends GetxController {
     bool isDark = settings['isDark'] ?? false;
     Get.updateLocale(isArabic ? const Locale('ar') : const Locale('en'));
    Get.changeThemeMode(isDark ? ThemeMode.dark : ThemeMode.light);
+   isDarkMode.value = isDark;
+
   }
 
   //_____________________________________________________________________________

@@ -32,7 +32,7 @@ class _SignInState extends State<SignIn> {
     return Scaffold(
       body: Container(
         height:850 ,
-        color: Color.fromARGB(255, 8, 1, 1),
+        color: context.surface,
         padding: EdgeInsets.fromLTRB(50, 0, 30, 0),
         child: Form(
           key: form,
@@ -47,10 +47,10 @@ class _SignInState extends State<SignIn> {
                 ),
                  
                 Text(
-                  "Log in",
+                  "52".tr,
                   style: GoogleFonts.timmana(   
                     fontWeight: FontWeight.bold,
-                    fontSize: 50,
+                    fontSize: 40,
                     color: mainColor,
                   ),
                 ),
@@ -58,7 +58,7 @@ class _SignInState extends State<SignIn> {
                 TextFormFieldScreen(
                   controller: emailController,
                   keyboardType: TextInputType.name,
-                  label: "Email",
+                  label: "53".tr,
                   prefix: Icons.email,
                   validator: (value) {
                     return ValidatorScreen(value!, 2, 90, "emailController");
@@ -71,7 +71,7 @@ class _SignInState extends State<SignIn> {
                         obsureText: controller.isshowPassword,
                         controller: passwordController1,
                         keyboardType: TextInputType.name,
-                        label: "Password",
+                        label: "54".tr,
                         prefix: Icons.lock,
                         validator: (value) {
                           return ValidatorScreen(value!, 6, 90, "password");
@@ -91,7 +91,7 @@ class _SignInState extends State<SignIn> {
                   // crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     Text(
-                      "Remember Me",
+                      "55".tr,
                       style: TextStyle(color: mainColor, fontSize: 20),
                     ),
                       Obx(()=>
@@ -104,7 +104,7 @@ class _SignInState extends State<SignIn> {
                           },
                         ),
                       ),
-                    SizedBox(width: 35),
+                    SizedBox(width: 25),
 
                     TextButton(
                       onPressed: () async {
@@ -158,7 +158,7 @@ class _SignInState extends State<SignIn> {
                           ).show();
                         }
                       },
-                      child: const Text("Forget password"),
+                      child:  Text("56".tr),
                     ),
                   ],
                 ),
@@ -169,7 +169,7 @@ class _SignInState extends State<SignIn> {
                       await ctr.signin(emailController, passwordController1);
                     }
                   },
-                  titleOfButton: "Login            ",
+                  titleOfButton: "52".tr,
                   Icons: const Icon(
                     FontAwesome.google,
                     color: Colors.amber,
@@ -186,9 +186,11 @@ class _SignInState extends State<SignIn> {
                   onPressed: () {
                     Get.to(() => Signup());
                   },
-                  child: Text(
-                    "          Don't Have an Account? Sign Up",
-                    style: TextStyle(color: mainColor, fontSize: 15),
+                  child: Center(
+                    child: Text(
+                      "57".tr,
+                      style: TextStyle(color: mainColor, fontSize: 15),
+                    ),
                   ),
                 ),
               ],

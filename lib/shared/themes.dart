@@ -14,7 +14,7 @@ class AppThemes {
       selectedItemColor: mainColor,
       unselectedItemColor: Colors.grey,
     ),
-    scaffoldBackgroundColor: Colors.grey,
+    scaffoldBackgroundColor: const Color.fromARGB(255, 225, 213, 213),
     cardColor: AppColors.lightSurface,
      dividerColor:AppColors.lightBorder,
     appBarTheme: const AppBarTheme(

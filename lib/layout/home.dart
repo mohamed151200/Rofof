@@ -63,27 +63,7 @@ class Home_page extends StatelessWidget {
         body:Obx(() => pages[crt.index.value]),
         
         
-         /* CustomScrollView(
-          physics: const BouncingScrollPhysics(),
-          slivers: [
-            // الـ Header المبهر (SliverAppBar)
-            const SliverAppBar(
-              floating: true,
-              expandedHeight: 120,
-              flexibleSpace: FlexibleSpaceBar(
-                title: Text('Books Library', style: TextStyle(color: Colors.white)),
-                centerTitle: true,
-              ),
-              backgroundColor: Colors.white,
-              elevation: 0,
-            ),
-
-            // محتوى الصفحة
-            SliverToBoxAdapter(
-              child: 
-            ),
-          ],
-        ), */
+        
       
     );
   }

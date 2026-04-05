@@ -1,43 +1,63 @@
-📚 Rofof (رفوف) - Personal Library Manager
+# 📚 Rofof – Advanced E-Library App
 
-A cross-platform mobile application built with Flutter that allows users to manage their book collections efficiently with full offline support and real-time cloud synchronization.
-🏗️ Technical Architecture & Engineering Decisions
+**Rofof** is a high-performance, cross-platform e-library application built with Flutter. It provides a seamless reading experience by integrating the **Google Books API** with a robust **Firebase backend**, focusing on data integrity, offline resilience, and personalized user experiences.
 
-As a Systems and Computer Engineer, I built this app with scalability and performance in mind:
+---
 
-    State Management: Utilized GetX for high-performance reactive programming and clean dependency injection.
+## 🚀 Key Technical Features
 
-    Persistent Storage: Implemented a hybrid data strategy:
+### 🔍 1. Smart Search Engine
+Engineered a sophisticated search system that prioritizes user speed and data efficiency:
+* **Live Suggestions:** Real-time search-as-you-type functionality.
+* **LRU Search History:** Implemented **Least Recently Used (LRU) Logic** to manage search history, ensuring that the most relevant and recent searches are always at the top.
+* **Debounced Requests:** Optimized API calls to reduce server load and improve performance.
 
-        Local: Sqflite for lightning-fast offline access.
+### 🔄 2. Real-time Cloud Synchronization
+Ensured a consistent experience across multiple devices and accounts:
+* **Multi-User Profiles:** Dedicated settings and favorites for each Google account using **Firebase Authentication**.
+* **Preference Sync:** Themes (Dark/Light mode) and Language settings are synced to **Cloud Firestore**, allowing users to find their environment ready on any device.
+* **Data Integrity:** Seamlessly merging local state with cloud data.
 
-        Cloud: Firebase Firestore for real-time synchronization across multiple devices.
+### 📶 3. Offline-First Architecture
+Designed to work flawlessly in unreliable network conditions:
+* **Local Persistence:** Leveraged **sqflite** for caching heavy book data and **GetStorage** for lightweight user preferences.
+* **Background Sync:** Actions performed offline (like adding to favorites) are queued and automatically synchronized once the connection is restored.
+* **Seamless UX:** Users can browse cached content and history without interruption during network outages.
 
-    Authentication & Security: Integrated Firebase Auth with a custom Email Verification flow and a persistent "Remember Me" logic using GetStorage.
+### 🧠 4. State Management & Architecture
+* **GetX Expertise:** Utilized GetX for reactive UI updates, efficient dependency injection, and clean route management.
+* **Performance Optimization:** Implemented a **10-by-10 Pagination** strategy using **Dio** to fetch data in chunks, significantly reducing initial load times and memory consumption.
+* **Clean Code:** Adhered to OOP principles and clean architecture to ensure the codebase is maintainable and scalable.
 
-    Networking: Used Dio with specialized interceptors for robust API communication.
+---
 
-🛠️ Advanced Logic Implementation
-1. Robust "Remember Me" System
+## 🛠 Tech Stack
+* **Frontend:** Flutter & Dart
+* **State Management:** GetX
+* **Backend:** Firebase (Firestore, Auth)
+* **Networking:** Dio (REST API)
+* **Local Database:** sqflite & GetStorage
+* **Utilities:** Google Sign-In, Localization (En/Ar)
 
-Unlike basic implementations, Rofof handles the synchronization between Firebase Auth Sessions and Local Storage Preferences.
+---
 
-    The Logic: If a user chooses not to be remembered, the app ensures the Firebase session is terminated (signOut) on the next launch to prevent unauthorized access, even if the token hasn't expired.
+## 📺 Demo Videos
 
-2. Dual-Layer Sync Strategy
+| 🌐 Cloud Sync & Preferences | 📱 Offline-First Logic |
+|---|---|
+| <video src="https://github.com/mohamed151200/Rofof/blob/main/assets/videos/sync%20fav.mp4" width="350"> | <video src="https://github.com/mohamed151200/Rofof/blob/main/assets/videos/offline.mp4" width="350"> |
 
-To ensure data integrity, I implemented a unique mapping system where each local SQLite record is indexed by the Firebase UID, allowing for seamless merging when the device comes back online.
-3. Error Handling & UX
+| 🔍 Smart Search Engine | 👥 Multi-Account Isolation |
+|---|---|
+| <video src="https://github.com/mohamed151200/Rofof/blob/main/assets/videos/searching%20history.mp4" width="350"> | <video src="https://github.com/mohamed151200/Rofof/blob/main/assets/videos/sync%20settings.mp4" width="350"> |
 
-Integrated AwesomeDialog for professional feedback loops, covering all FirebaseAuthException cases (e.g., weak-password, email-already-in-use) with appropriate visual cues.
-🚀 Future Roadmap
+---
 
-    [ ] Add book barcode scanning.
+## 👷 Technical Challenges & Solutions
+* **Challenge:** Handling data conflicts when the user switches accounts.
+* **Solution:** Implemented a reactive listener that clears local cache and re-fetches preferences based on the new `UID` from Firebase Auth.
 
-    [ ] Social features to share reading lists.
+---
 
-    [ ] Dark Mode enhancement.
-
-👨‍💻 About the Developer
-
-Mohamed Systems and Computer Engineer | Mobile App Developer [Your LinkedIn Profile Link] | [Your Portfolio Link]
+## ✉️ Contact
+**Mohamed Khaled Saleh** *Computer and Systems Engineer* [LinkedIn](https://www.linkedin.com/in/mohamed-khaled-saleh-328438344/) | [Email](mailto:mohamedkhaledsaleh314@gmail.com)

@@ -56,8 +56,15 @@ class Mylocal implements Translations {
           '49':'فشل تحميل الكتاب',
           '50':'إعادة المحاولة',
           '51':'افتح في المتصفح',
-
-          
+          '52':'تسجيل الدخول',
+          '53':'البريد الإلكتروني',
+          '54':'كلمة المرور',
+          '55':'تذكرني',
+          '56':'نسيت كلمة المرور ؟',
+          '57':'ليس لديك حساب ؟ اشترك',
+          '58':'اشترك',
+          '59':'تسجيل الدخول باستخدام جوجل',
+          '60':'هل لديك حساب ؟ سجل الدخول',
 
 
          
@@ -115,6 +122,16 @@ class Mylocal implements Translations {
           '49':'Failed to load the book',
           '50':'Retry',
           '51':'Open in Browser',
+          '52':'Log in',
+          '53':'Email',
+          '54':'Password',
+          '55':'Remember Me',
+          '56':'Forgot Password?',
+          '57':'Don\'t have an account? Sign Up',
+          '58':'Sign up',
+          '59':'sign in with google',
+          '60':'Do you Have an Account? Sign In',
+
     
           
         },

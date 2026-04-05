@@ -8,6 +8,7 @@ import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:the_dark_knight_final/shared/components.dart';
 
 ValidatorScreen(String value, int min, int max, String type) {
    if (value.isEmpty) {
@@ -121,7 +122,7 @@ class TextFormFieldScreen extends StatelessWidget {
           borderRadius: BorderRadius.all(Radius.circular(30))),
       
       margin: EdgeInsets.only(top: 20, right: 8, left: 8),
-      child: TextFormField(style: TextStyle(color: Colors.white),
+      child: TextFormField(style: TextStyle(color: context.textPrimary),
         autocorrect: true,
         maxLengthEnforcement: MaxLengthEnforcement.enforced,
         controller: controller,
@@ -158,7 +159,7 @@ class MaterialButtonScreen extends StatelessWidget {
   final Color? colorOfButton;
 
   const MaterialButtonScreen({
-    required this.titleOfButton,
+    required String titleOfButton,
     this.widthOfButton,
     this.fontWeight,
     this.onPressed,
@@ -169,7 +170,7 @@ class MaterialButtonScreen extends StatelessWidget {
     this.colorOfButton,
     required Icon Icons,
     //required MaterialColor fontolor,
-  });
+  }) : titleOfButton = titleOfButton;
 
   @override
   Widget build(BuildContext context) {
@@ -188,13 +189,15 @@ class MaterialButtonScreen extends StatelessWidget {
           children: [
             Icon(icon, color: Colors.black),
             SizedBox(width: 8.0),
-            Text(
-              titleOfButton,
-              style: TextStyle(
-                color: fontColor,
-                fontSize: fontSize,
-                fontWeight: fontWeight,
-                fontStyle: fontStyle,
+            Center(
+              child: Text(
+                titleOfButton,
+                style: TextStyle(
+                  color: fontColor,
+                  fontSize: fontSize,
+                  fontWeight: fontWeight,
+                  fontStyle: fontStyle,
+                ),
               ),
             ),
           ],

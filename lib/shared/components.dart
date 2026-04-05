@@ -15,7 +15,7 @@ import '../module/book_details.dart';
 Homecrt crt = Get.put(Homecrt());
 Sqlcrt sql = Get.put(Sqlcrt());
 ConnectivityController connectivityController = Get.put(ConnectivityController());
-Color mainColor =  Color.fromARGB(255, 119, 9, 78);
+Color mainColor =  Color.fromARGB(255, 142, 13, 95);
 
 
 
@@ -233,7 +233,7 @@ class card extends StatelessWidget {
                             }
                           },
                 icon: Icon(isFavorite ? Icons.star : Icons.star_border),
-                color: isFavorite ? Colors.yellow : Colors.white,
+                color: isFavorite ? mainColor : Colors.grey,
               );
             }),
           ]),
